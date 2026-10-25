@@ -1,0 +1,70 @@
+name: 오사카 항공권 감시
+
+on:
+  schedule:
+    # GitHub 예약은 UTC 기준. 23:07 UTC = 08:07 KST, 11:07 UTC = 20:07 KST
+    # (정각은 GitHub 서버가 붐벼 지연이 커서 7분으로 잡음. 실제 시작은 5~30분 늦을 수 있음)
+    - cron: "7 23 * * *"
+    - cron: "7 11 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "실행 방식"
+        type: choice
+        options: [full, limit, probe, test-mail]
+        default: limit
+      probe_date:
+        description: "probe 날짜 (YYYY-MM-DD, 앞으로의 토요일)"
+        default: ""
+      limit:
+        description: "limit 개수"
+        default: "2"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: flight-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      TZ: Asia/Seoul
+      MAIL_USER: ${{ secrets.MAIL_USER }}
+      MAIL_APP_PASSWORD: ${{ secrets.MAIL_APP_PASSWORD }}
+      MAIL_TO: ${{ secrets.MAIL_TO }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: 실행
+        run: |
+          MODE="${{ github.event.inputs.mode || 'full' }}"
+          case "$MODE" in
+            full)      python naver_api_watch.py ;;
+            limit)     python naver_api_watch.py --limit "${{ github.event.inputs.limit || '2' }}" ;;
+            probe)     D="${{ github.event.inputs.probe_date }}"
+                       if [ -z "$D" ]; then D=$(python -c "import datetime as d;t=d.date.today()+d.timedelta(days=30);print(t+d.timedelta(days=(5-t.weekday())%7))"); fi
+                       python naver_api_watch.py --probe "$D" ;;
+            test-mail) python naver_api_watch.py --test-mail ;;
+          esac
+      - name: 결과 파일 보관 (Actions 실행 화면에서 내려받기)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: result-${{ github.run_number }}
+          path: data/
+          retention-days: 14
+      - name: 가격 기록 저장 (지난번 대비 비교용)
+        if: always() && (github.event_name == 'schedule' || github.event.inputs.mode == 'full')
+        run: |
+          git config user.name "flight-watch-bot"
+          git config user.email "flight-watch-bot@users.noreply.github.com"
+          git add data/last_top.json data/history.csv 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "가격 기록 $(date '+%Y-%m-%d %H:%M')"
+          git push || true
