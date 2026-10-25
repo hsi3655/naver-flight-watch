@@ -1,0 +1,53 @@
+{
+  "origins": [
+    "ICN",
+    "GMP"
+  ],
+  "destination": "KIX",
+  "patterns": [
+    "fri_sun",
+    "sat_mon"
+  ],
+  "min_days_ahead": 1,
+  "days_ahead": 400,
+  "stop_after_empty_trips": 4,
+  "nonstop_only": true,
+  "outbound_depart_between": [
+    "06:00",
+    "12:00"
+  ],
+  "return_depart_between": [
+    "12:00",
+    "18:00"
+  ],
+  "exclude_airlines": [
+    "피치",
+    "Peach",
+    "MM"
+  ],
+  "payment_groups": {
+    "네이버페이": [
+      "네이버페이",
+      "네이버 페이",
+      "Npay",
+      "N pay"
+    ],
+    "우리카드": [
+      "우리카드"
+    ]
+  },
+  "show_general_fare": true,
+  "top_n": 10,
+  "adults": 1,
+  "fare_limit": 100,
+  "delay_sec": [
+    2,
+    4
+  ],
+  "search_timeout_sec": 60,
+  "max_run_minutes": 100,
+  "mail": {
+    "enabled": true,
+    "only_when_changed": false
+  }
+}
