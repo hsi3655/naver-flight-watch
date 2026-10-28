@@ -2,10 +2,9 @@ name: 오사카 항공권 감시
 
 on:
   schedule:
-    # GitHub 예약은 UTC 기준. 23:07 UTC = 08:07 KST, 11:07 UTC = 20:07 KST
+    # GitHub 예약은 UTC 기준. 매 홀수 시 7분(UTC) = 한국 시간 00:07, 02:07, ... 22:07 (2시간 간격)
     # (정각은 GitHub 서버가 붐벼 지연이 커서 7분으로 잡음. 실제 시작은 5~30분 늦을 수 있음)
-    - cron: "7 23 * * *"
-    - cron: "7 11 * * *"
+    - cron: "7 1-23/2 * * *"
   workflow_dispatch:
     inputs:
       mode:
