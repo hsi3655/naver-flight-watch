@@ -48,6 +48,10 @@
   "max_run_minutes": 100,
   "mail": {
     "enabled": true,
-    "only_when_changed": false
-  }
+    "only_when_changed": true
+  },
+  "auto_guard_error_ratio": 0.3,
+  "auto_drop_origins": [
+    "GMP"
+  ]
 }
