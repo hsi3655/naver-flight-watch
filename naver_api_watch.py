@@ -75,6 +75,11 @@ DEFAULT_CONFIG = {
     "delay_sec": [2, 4],
     "search_timeout_sec": 60,
     "max_run_minutes": 100,
+    # 자동 대응: 한 번 실행에서 검색 오류 비율이 이 값 이상이면
+    #   1단계) auto_drop_origins 의 공항(김포)을 자동으로 빼고 메일로 알림
+    #   2단계) 이미 뺀 뒤에도 오류가 계속되면 몇 시간씩 쉬었다가 다시 시도 (3→6→12→24시간)
+    "auto_guard_error_ratio": 0.3,
+    "auto_drop_origins": ["GMP"],
     "mail": {
         "enabled": True,
         "smtp_host": "smtp.gmail.com",
@@ -516,6 +521,57 @@ def save(tops, results, keep_days=120):
                         r["airlines"], " ".join(r["times"])])
 
 
+# ---------------------------------------------------------------- 자동 대응 (상태는 data/state.json)
+STATE_PATH = DATA / "state.json"
+
+
+def load_state():
+    try:
+        return json.loads(STATE_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def save_state(st):
+    DATA.mkdir(exist_ok=True)
+    STATE_PATH.write_text(json.dumps(st, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def apply_state(cfg, st):
+    drop = set(st.get("excluded_origins", []))
+    cfg["origins"] = [o for o in cfg["origins"] if o not in drop] or cfg["origins"]
+    return cfg
+
+
+def auto_guard(cfg, st, failures, total):
+    """오류가 많으면 김포 제외 → 그래도 계속되면 쉬기. 알릴 내용(문자열) 또는 None 반환"""
+    err_trips = {f["trip"] for f in failures if f["reason"].startswith("error")}
+    ratio = len(err_trips) / total if total else 0
+    sample = next((f["reason"] for f in failures if f["reason"].startswith("error")), "")
+    now = now_kst()
+    if total >= 4 and ratio >= cfg["auto_guard_error_ratio"]:
+        drop = [o for o in cfg["auto_drop_origins"] if o in cfg["origins"]]
+        if drop and len(drop) < len(cfg["origins"]):
+            st["excluded_origins"] = sorted(set(st.get("excluded_origins", [])) | set(drop))
+            st["excluded_since"] = f"{now:%Y-%m-%d %H:%M}"
+            st["excluded_reason"] = f"검색 오류 {len(err_trips)}/{total}건 ({sample[:100]})"
+            save_state(st)
+            return (f"검색 오류가 {len(err_trips)}/{total}건({ratio:.0%}) 발생해 다음 실행부터 "
+                    f"{', '.join(drop)} 출발을 자동으로 제외합니다. (예: {sample})")
+        hours = min(24, max(3, st.get("pause_hours", 0) * 2 or 3))
+        st["pause_hours"] = hours
+        st["pause_until"] = (now + dt.timedelta(hours=hours)).isoformat()
+        save_state(st)
+        return (f"출발 공항을 줄인 뒤에도 검색 오류가 {len(err_trips)}/{total}건({ratio:.0%}) 발생해 "
+                f"{hours}시간 동안 조회를 쉬었다가 다시 시도합니다. 계속되면 네이버 차단일 수 있습니다. (예: {sample})")
+    if st.get("pause_hours") or st.get("pause_until"):
+        st.pop("pause_hours", None)
+        st.pop("pause_until", None)
+        save_state(st)
+        return None
+    return None
+
+
 # ---------------------------------------------------------------- 진단
 def probe(cfg, date_str, origin):
     dep = dt.date.fromisoformat(date_str)
@@ -569,9 +625,22 @@ def main():
     if a.probe:
         probe(cfg, a.probe, a.origin or cfg["origins"][0])
         return
+    st = load_state()
+    if not a.limit and st.get("pause_until") and dt.datetime.fromisoformat(st["pause_until"]) > now_kst():
+        log(f"자동 대응으로 {st['pause_until'][:16]} 까지 조회를 쉬는 중이라 이번 실행은 건너뜁니다.")
+        return
+    apply_state(cfg, st)
+    if st.get("excluded_origins"):
+        log(f"자동 제외 중인 출발 공항: {', '.join(st['excluded_origins'])} ({st.get('excluded_since', '')}부터)")
     last_p = DATA / "last_top.json"
     last = json.loads(last_p.read_text(encoding="utf-8")) if last_p.exists() else {}
     results, failures, total = run_scan(cfg, a.limit)
+    notice = None if a.limit else auto_guard(cfg, st, failures, total)
+    if notice:
+        log("자동 대응: " + notice)
+        if cfg["mail"]["enabled"] and not a.no_mail:
+            send_mail(cfg, "[항공권 감시] 자동 조정 알림", notice, f"<p>{html.escape(notice)}</p>"
+                      "<p>되돌리려면 저장소의 data/state.json 파일을 삭제하세요.</p>")
     tops = {g: rank(results, g, cfg["top_n"]) for g in cfg["payment_groups"]}
     text, body, changed = build_report(cfg, tops, last, results, failures, total)
     (DATA / "last_report.html").write_text(body, encoding="utf-8")
@@ -579,7 +648,7 @@ def main():
     if results and not a.limit:
         save(tops, results)
     errors = sum(1 for f in failures if f["reason"].startswith("error"))
-    if not results and total and errors >= total * len(cfg["payment_groups"]) * 0.8:
+    if not results and total and errors >= total * len(cfg["payment_groups"]) * 0.8 and not notice:
         raise RuntimeError(f"조회가 거의 모두 실패했습니다 ({errors}건). 예: {failures[0]['reason']}")
     if a.no_mail or not cfg["mail"]["enabled"]:
         log("메일 발송 안 함. 결과는 data/last_report.html")
