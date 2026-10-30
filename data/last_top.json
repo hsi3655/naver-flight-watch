@@ -6,9 +6,9 @@
    "ret": "2027-10-25",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 304200,
+   "price": 303500,
    "discount": false,
-   "general": 304200,
+   "general": 303500,
    "airlines": "이스타항공",
    "times": [
     "09:15",
@@ -24,9 +24,9 @@
    "ret": "2027-10-24",
    "pattern": "금~일",
    "origin": "ICN",
-   "price": 328300,
+   "price": 328000,
    "discount": false,
-   "general": 328300,
+   "general": 328000,
    "airlines": "이스타항공",
    "times": [
     "09:15",
@@ -38,13 +38,31 @@
   },
   {
    "group": "네이버페이",
+   "dep": "2027-03-13",
+   "ret": "2027-03-15",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 341080,
+   "discount": true,
+   "general": 351180,
+   "airlines": "이스타항공",
+   "times": [
+    "09:55",
+    "11:55",
+    "18:00",
+    "19:50"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270313/KIX-ICN-20270315?adult=1&fareType=Y"
+  },
+  {
+   "group": "네이버페이",
    "dep": "2027-01-02",
    "ret": "2027-01-04",
    "pattern": "토~월",
    "origin": "GMP",
-   "price": 340694,
+   "price": 342297,
    "discount": false,
-   "general": 340694,
+   "general": 342297,
    "airlines": "제주항공",
    "times": [
     "08:00",
@@ -60,9 +78,9 @@
    "ret": "2027-03-08",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 351100,
-   "discount": true,
-   "general": 354300,
+   "price": 346500,
+   "discount": false,
+   "general": 346500,
    "airlines": "진에어",
    "times": [
     "12:00",
@@ -74,21 +92,39 @@
   },
   {
    "group": "네이버페이",
-   "dep": "2027-03-13",
-   "ret": "2027-03-15",
+   "dep": "2027-03-05",
+   "ret": "2027-03-07",
+   "pattern": "금~일",
+   "origin": "ICN",
+   "price": 356700,
+   "discount": false,
+   "general": 356700,
+   "airlines": "진에어",
+   "times": [
+    "12:00",
+    "13:50",
+    "14:50",
+    "16:50"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270305/KIX-ICN-20270307?adult=1&fareType=Y"
+  },
+  {
+   "group": "네이버페이",
+   "dep": "2027-03-20",
+   "ret": "2027-03-22",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 352880,
+   "price": 356700,
    "discount": false,
-   "general": 352880,
-   "airlines": "이스타항공",
+   "general": 356700,
+   "airlines": "진에어",
    "times": [
-    "09:55",
-    "11:55",
-    "18:00",
-    "19:50"
+    "12:00",
+    "13:50",
+    "14:50",
+    "16:50"
    ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270313/KIX-ICN-20270315?adult=1&fareType=Y"
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270320/KIX-ICN-20270322?adult=1&fareType=Y"
   },
   {
    "group": "네이버페이",
@@ -96,8 +132,8 @@
    "ret": "2026-12-14",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 354260,
-   "discount": true,
+   "price": 357702,
+   "discount": false,
    "general": 357702,
    "airlines": "이스타항공",
    "times": [
@@ -110,57 +146,21 @@
   },
   {
    "group": "네이버페이",
-   "dep": "2027-03-05",
-   "ret": "2027-03-07",
-   "pattern": "금~일",
+   "dep": "2027-01-23",
+   "ret": "2027-01-25",
+   "pattern": "토~월",
    "origin": "ICN",
-   "price": 357800,
+   "price": 370800,
    "discount": false,
-   "general": 357800,
-   "airlines": "진에어 → 에어부산",
+   "general": 370800,
+   "airlines": "이스타항공 → 에어부산",
    "times": [
-    "12:00",
-    "13:50",
+    "09:55",
+    "11:55",
     "12:00",
     "14:10"
    ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270305/KIX-ICN-20270307?adult=1&fareType=Y"
-  },
-  {
-   "group": "네이버페이",
-   "dep": "2027-03-20",
-   "ret": "2027-03-22",
-   "pattern": "토~월",
-   "origin": "ICN",
-   "price": 359400,
-   "discount": true,
-   "general": 363700,
-   "airlines": "진에어",
-   "times": [
-    "12:00",
-    "13:50",
-    "14:50",
-    "16:50"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270320/KIX-ICN-20270322?adult=1&fareType=Y"
-  },
-  {
-   "group": "네이버페이",
-   "dep": "2026-12-19",
-   "ret": "2026-12-21",
-   "pattern": "토~월",
-   "origin": "ICN",
-   "price": 360096,
-   "discount": true,
-   "general": 360096,
-   "airlines": "트리니티항공 → 제주항공",
-   "times": [
-    "07:55",
-    "09:55",
-    "12:00",
-    "14:05"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20261219/KIX-ICN-20261221?adult=1&fareType=Y"
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270123/KIX-ICN-20270125?adult=1&fareType=Y"
   },
   {
    "group": "네이버페이",
@@ -168,15 +168,15 @@
    "ret": "2027-01-11",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 371400,
-   "discount": false,
-   "general": 371400,
-   "airlines": "제주항공 → 이스타항공",
+   "price": 374443,
+   "discount": true,
+   "general": 374443,
+   "airlines": "제주항공",
    "times": [
     "09:10",
     "11:00",
-    "12:55",
-    "14:55"
+    "12:00",
+    "14:05"
    ],
    "url": "https://flight.naver.com/flights/international/ICN-KIX-20270109/KIX-ICN-20270111?adult=1&fareType=Y"
   }
@@ -188,9 +188,9 @@
    "ret": "2027-10-25",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 304200,
+   "price": 303500,
    "discount": false,
-   "general": 304200,
+   "general": 303500,
    "airlines": "이스타항공",
    "times": [
     "09:15",
@@ -206,9 +206,9 @@
    "ret": "2027-10-24",
    "pattern": "금~일",
    "origin": "ICN",
-   "price": 328300,
+   "price": 328000,
    "discount": true,
-   "general": 328300,
+   "general": 328000,
    "airlines": "이스타항공",
    "times": [
     "09:15",
@@ -220,13 +220,31 @@
   },
   {
    "group": "우리카드",
+   "dep": "2027-03-13",
+   "ret": "2027-03-15",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 341980,
+   "discount": true,
+   "general": 351180,
+   "airlines": "이스타항공",
+   "times": [
+    "09:55",
+    "11:55",
+    "18:00",
+    "19:50"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270313/KIX-ICN-20270315?adult=1&fareType=Y"
+  },
+  {
+   "group": "우리카드",
    "dep": "2027-01-02",
    "ret": "2027-01-04",
    "pattern": "토~월",
    "origin": "GMP",
-   "price": 340694,
+   "price": 342297,
    "discount": false,
-   "general": 340694,
+   "general": 342297,
    "airlines": "제주항공",
    "times": [
     "08:00",
@@ -242,9 +260,9 @@
    "ret": "2027-03-08",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 346200,
+   "price": 345900,
    "discount": true,
-   "general": 354300,
+   "general": 346500,
    "airlines": "진에어",
    "times": [
     "12:00",
@@ -256,31 +274,13 @@
   },
   {
    "group": "우리카드",
-   "dep": "2027-03-13",
-   "ret": "2027-03-15",
-   "pattern": "토~월",
-   "origin": "ICN",
-   "price": 350180,
-   "discount": true,
-   "general": 352880,
-   "airlines": "이스타항공",
-   "times": [
-    "09:55",
-    "11:55",
-    "18:00",
-    "19:50"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270313/KIX-ICN-20270315?adult=1&fareType=Y"
-  },
-  {
-   "group": "우리카드",
    "dep": "2027-03-05",
    "ret": "2027-03-07",
    "pattern": "금~일",
    "origin": "ICN",
-   "price": 353300,
+   "price": 352800,
    "discount": true,
-   "general": 359168,
+   "general": 356700,
    "airlines": "진에어",
    "times": [
     "12:00",
@@ -292,12 +292,30 @@
   },
   {
    "group": "우리카드",
+   "dep": "2027-03-20",
+   "ret": "2027-03-22",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 354800,
+   "discount": true,
+   "general": 356700,
+   "airlines": "진에어",
+   "times": [
+    "12:00",
+    "13:50",
+    "14:50",
+    "16:50"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270320/KIX-ICN-20270322?adult=1&fareType=Y"
+  },
+  {
+   "group": "우리카드",
    "dep": "2026-12-12",
    "ret": "2026-12-14",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 355060,
-   "discount": true,
+   "price": 357702,
+   "discount": false,
    "general": 357702,
    "airlines": "이스타항공",
    "times": [
@@ -310,21 +328,21 @@
   },
   {
    "group": "우리카드",
-   "dep": "2027-03-20",
-   "ret": "2027-03-22",
+   "dep": "2027-01-23",
+   "ret": "2027-01-25",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 355100,
-   "discount": true,
-   "general": 363700,
-   "airlines": "진에어",
+   "price": 370800,
+   "discount": false,
+   "general": 370800,
+   "airlines": "이스타항공 → 에어부산",
    "times": [
+    "09:55",
+    "11:55",
     "12:00",
-    "13:50",
-    "14:50",
-    "16:50"
+    "14:10"
    ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270320/KIX-ICN-20270322?adult=1&fareType=Y"
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270123/KIX-ICN-20270125?adult=1&fareType=Y"
   },
   {
    "group": "우리카드",
@@ -332,35 +350,17 @@
    "ret": "2026-12-21",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 360096,
-   "discount": false,
-   "general": 360096,
-   "airlines": "트리니티항공 → 제주항공",
+   "price": 371000,
+   "discount": true,
+   "general": 376900,
+   "airlines": "에어서울 → 제주항공",
    "times": [
-    "07:55",
-    "09:55",
+    "07:15",
+    "09:05",
     "12:00",
     "14:05"
    ],
    "url": "https://flight.naver.com/flights/international/ICN-KIX-20261219/KIX-ICN-20261221?adult=1&fareType=Y"
-  },
-  {
-   "group": "우리카드",
-   "dep": "2027-01-09",
-   "ret": "2027-01-11",
-   "pattern": "토~월",
-   "origin": "ICN",
-   "price": 371400,
-   "discount": false,
-   "general": 371400,
-   "airlines": "제주항공 → 이스타항공",
-   "times": [
-    "09:10",
-    "11:00",
-    "12:55",
-    "14:55"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270109/KIX-ICN-20270111?adult=1&fareType=Y"
   }
  ]
 }
