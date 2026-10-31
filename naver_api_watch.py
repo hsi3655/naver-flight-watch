@@ -80,8 +80,12 @@ DEFAULT_CONFIG = {
     #   2단계) 이미 뺀 뒤에도 오류가 계속되면 몇 시간씩 쉬었다가 다시 시도 (3→6→12→24시간)
     "auto_guard_error_ratio": 0.3,
     "auto_drop_origins": ["GMP"],
+    # 알림 기준: 직전 '알림' 대비 ① 결제수단별 1위가 내려가거나 ② TOP 안 일정이 이 금액 이상 내려가거나
+    #           ③ 새 일정이 직전 10위 가격보다 싸게 TOP 에 들어올 때만 알림 (mail.only_when_changed=false 면 매번)
+    "notify_min_drop": 5000,
+    "telegram": {"enabled": True, "bot_token": "", "chat_id": ""},
     "mail": {
-        "enabled": True,
+        "enabled": False,
         "smtp_host": "smtp.gmail.com",
         "smtp_port": 587,
         "user": "",
@@ -113,8 +117,13 @@ def load_config():
     if CONFIG_PATH.exists():
         user = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
         mail = user.pop("mail", {})
+        tgu = user.pop("telegram", {})
         cfg.update(user)
         cfg["mail"].update(mail)
+        cfg["telegram"].update(tgu)
+    tg = cfg.setdefault("telegram", {})
+    tg["bot_token"] = os.environ.get("TELEGRAM_BOT_TOKEN") or tg.get("bot_token", "")
+    tg["chat_id"] = os.environ.get("TELEGRAM_CHAT_ID") or str(tg.get("chat_id", ""))
     m = cfg["mail"]  # 비밀값은 환경변수(GitHub Secrets)가 우선
     m["user"] = os.environ.get("MAIL_USER") or m["user"]
     m["app_password"] = os.environ.get("MAIL_APP_PASSWORD") or m["app_password"]
@@ -422,7 +431,7 @@ def rank(results, group, top_n):
 
 def fmt_day(iso):
     d = dt.date.fromisoformat(iso)
-    return f"{d:%y.%m.%d}({WEEKDAY_KO[d.weekday()]})"
+    return f"{d:%Y.%m.%d}({WEEKDAY_KO[d.weekday()]})"
 
 
 def build_report(cfg, tops, last, results, failures, total):
@@ -482,6 +491,102 @@ def build_report(cfg, tops, last, results, failures, total):
     sig = lambda t: [(r["dep"], r["ret"], r["price"]) for r in t]
     changed = any(sig(tops.get(g, [])) != sig(last.get(g, [])) for g in cfg["payment_groups"])
     return "\n".join(text), body, changed
+
+
+def notify_reasons(cfg, tops, last_sent):
+    """직전 알림(last_sent)과 비교해 알릴 이유 목록. 비어 있으면 알리지 않음"""
+    if not last_sent:
+        return ["첫 알림"]
+    min_drop = cfg.get("notify_min_drop", 5000)
+    reasons = []
+    for g in cfg["payment_groups"]:
+        now_t, old_t = tops.get(g, []), last_sent.get(g, [])
+        if not now_t:
+            continue
+        if not old_t or now_t[0]["price"] < old_t[0]["price"]:
+            old1 = f"{old_t[0]['price']:,}원 → " if old_t else ""
+            reasons.append(f"{g} 1위 하락: {old1}{now_t[0]['price']:,}원 ({fmt_day(now_t[0]['dep'])})")
+            continue
+        old = {(r["dep"], r["ret"]): r["price"] for r in old_t}
+        tenth = old_t[-1]["price"] if old_t else 10**12
+        for r in now_t:
+            p = old.get((r["dep"], r["ret"]))
+            if p is not None and p - r["price"] >= min_drop:
+                reasons.append(f"{g} {fmt_day(r['dep'])} {p - r['price']:,}원 하락 → {r['price']:,}원")
+                break
+            if p is None and r["price"] < tenth:
+                reasons.append(f"{g} 새 일정 진입: {fmt_day(r['dep'])} {r['price']:,}원")
+                break
+    return reasons
+
+
+def tg_escape(s):
+    return html.escape(str(s), quote=False)
+
+
+def build_telegram(cfg, tops, last_sent, reasons, failures, total, show=5):
+    lines = ["✈️ <b>서울→오사카 주말 최저가</b>", f"<i>{now_kst():%Y-%m-%d %H:%M} 조회 · {total}건</i>"]
+    if reasons:
+        lines.append("🔔 " + tg_escape(" / ".join(reasons[:3])))
+    for g in cfg["payment_groups"]:
+        prev = {(r["dep"], r["ret"]): r["price"] for r in last_sent.get(g, [])}
+        lines.append(f"\n<b>[{tg_escape(g)}] TOP {min(show, len(tops.get(g, [])))}</b>")
+        for i, r in enumerate(tops.get(g, [])[:show], 1):
+            p = prev.get((r["dep"], r["ret"]))
+            chg = "" if not prev else (" 🆕" if p is None else ("" if p == r["price"] else
+                  f" {'▲' if r['price'] > p else '▼'}{abs(r['price'] - p):,}"))
+            t = r["times"]
+            d2 = dt.date.fromisoformat(r["ret"])
+            ap = {"ICN": "인천", "GMP": "김포"}.get(r["origin"], r["origin"])
+            lines.append(f"{i}. {fmt_day(r['dep'])}~{d2:%m.%d}({WEEKDAY_KO[d2.weekday()]}) {ap} "
+                         f"<b>{r['price']:,}원</b>{chg}\n    {tg_escape(r['airlines'])} {t[0]}출발/{t[2]}귀국 "
+                         f"<a href=\"{tg_escape(r['url'])}\">네이버</a>")
+    n_err = len({f["trip"] for f in failures if f["reason"].startswith("error")})
+    if total and n_err > total * 0.3:
+        lines.append(f"\n⚠️ 조회 오류 {n_err}/{total}건")
+    lines.append("\n<i>결제가 = 그 결제수단 할인가와 일반 운임 중 낮은 값(1인)</i>")
+    return "\n".join(lines)
+
+
+def send_telegram(cfg, text):
+    tg = cfg.get("telegram", {})
+    url = f"{os.environ.get('NFW_TG_BASE', 'https://api.telegram.org')}/bot{tg['bot_token']}/sendMessage"
+    chunks, cur = [], ""
+    for line in text.split("\n"):  # 텔레그램 한 메시지 최대 4096자
+        if len(cur) + len(line) + 1 > 3900:
+            chunks.append(cur)
+            cur = ""
+        cur += line + "\n"
+    chunks.append(cur)
+    for c in chunks:
+        r = requests.post(url, json={"chat_id": tg["chat_id"], "text": c, "parse_mode": "HTML",
+                                     "disable_web_page_preview": True}, timeout=30)
+        if r.status_code != 200:
+            raise RuntimeError(f"텔레그램 발송 실패 HTTP {r.status_code}: {r.text[:200]}")
+
+
+def notify(cfg, subject, text, mail_html=None, tg_text=None):
+    """설정된 채널(텔레그램·메일)로 알림. 하나라도 성공하면 OK, 모두 실패하면 오류"""
+    ok, errs = [], []
+    tg = cfg.get("telegram", {})
+    if tg.get("enabled") and tg.get("bot_token") and tg.get("chat_id"):
+        try:
+            send_telegram(cfg, tg_text or tg_escape(f"{subject}\n{text}"))
+            ok.append("텔레그램")
+        except Exception as e:
+            errs.append(f"텔레그램: {e}")
+    if cfg["mail"].get("enabled"):
+        try:
+            send_mail(cfg, subject, text, mail_html or f"<pre>{html.escape(text)}</pre>")
+            ok.append("메일")
+        except Exception as e:
+            errs.append(f"메일: {e}")
+    for e in errs:
+        log("알림 실패 — " + e)
+    if not ok:
+        raise RuntimeError("알림을 보낼 수 있는 채널이 없습니다. " + (" / ".join(errs) or
+                           "TELEGRAM_BOT_TOKEN·TELEGRAM_CHAT_ID Secrets 를 확인하세요."))
+    log(f"알림 발송 완료: {', '.join(ok)}")
 
 
 def send_mail(cfg, subject, text, body):
@@ -638,12 +743,13 @@ def main():
     ap.add_argument("--limit", type=int)
     ap.add_argument("--no-mail", action="store_true")
     ap.add_argument("--test-mail", action="store_true")
+    ap.add_argument("--test-notify", action="store_true")
     a = ap.parse_args()
     cfg = load_config()
     DATA.mkdir(exist_ok=True)
-    if a.test_mail:
-        send_mail(cfg, "[항공권 감시] 메일 설정 확인", "메일 설정이 정상입니다.", "<p>메일 설정이 정상입니다.</p>")
-        log("테스트 메일을 보냈습니다.")
+    if a.test_mail or a.test_notify:
+        notify(cfg, "[항공권 감시] 알림 설정 확인", "알림 설정이 정상입니다. ✈️",
+               tg_text="✅ <b>항공권 감시</b> 알림 설정이 정상입니다.")
         return
     if a.probe:
         probe(cfg, a.probe, a.origin or cfg["origins"][0])
@@ -655,15 +761,15 @@ def main():
     apply_state(cfg, st)
     if st.get("excluded_origins"):
         log(f"자동 제외 중인 출발 공항: {', '.join(st['excluded_origins'])} ({st.get('excluded_since', '')}부터)")
-    last_p = DATA / "last_top.json"
-    last = json.loads(last_p.read_text(encoding="utf-8")) if last_p.exists() else {}
+    sent_p = DATA / "last_notified.json"  # 마지막으로 '알림'을 보낸 TOP (지난번 대비 비교 기준)
+    last = json.loads(sent_p.read_text(encoding="utf-8")) if sent_p.exists() else {}
     results, failures, total = run_scan(cfg, a.limit)
     notice = None if a.limit else auto_guard(cfg, st, failures, total)
     if notice:
         log("자동 대응: " + notice)
-        if cfg["mail"]["enabled"] and not a.no_mail:
-            send_mail(cfg, "[항공권 감시] 자동 조정 알림", notice, f"<p>{html.escape(notice)}</p>"
-                      "<p>되돌리려면 저장소의 data/state.json 파일을 삭제하세요.</p>")
+        if not a.no_mail:
+            notify(cfg, "[항공권 감시] 자동 조정 알림", notice + "\n(되돌리려면 저장소의 data/state.json 삭제)",
+                   tg_text="⚙️ <b>자동 조정</b>\n" + tg_escape(notice) + "\n<i>되돌리려면 저장소의 data/state.json 삭제</i>")
     tops = {g: rank(results, g, cfg["top_n"]) for g in cfg["payment_groups"]}
     text, body, changed = build_report(cfg, tops, last, results, failures, total)
     (DATA / "last_report.html").write_text(body, encoding="utf-8")
@@ -673,15 +779,19 @@ def main():
     errors = sum(1 for f in failures if f["reason"].startswith("error"))
     if not results and total and errors >= total * len(cfg["payment_groups"]) * 0.8 and not notice:
         raise RuntimeError(f"조회가 거의 모두 실패했습니다 ({errors}건). 예: {failures[0]['reason']}")
-    if a.no_mail or not cfg["mail"]["enabled"]:
-        log("메일 발송 안 함. 결과는 data/last_report.html")
+    if a.no_mail or not results:
+        log("알림 보내지 않음. 결과는 data/last_report.html")
         return
-    if cfg["mail"]["only_when_changed"] and not changed and results:
-        log("TOP 목록 변동 없음 → 메일 생략")
+    reasons = notify_reasons(cfg, tops, last) if cfg["mail"].get("only_when_changed", True) else ["매 실행 알림"]
+    if not reasons:
+        log(f"알릴 만한 변화 없음(1위 하락·{cfg.get('notify_min_drop', 5000):,}원 이상 하락·새 저가 일정 없음) → 알림 생략")
         return
+    log("알림 이유: " + " / ".join(reasons))
     lows = [f"{g} {tops[g][0]['price']:,}원({fmt_day(tops[g][0]['dep'])})" for g in cfg["payment_groups"] if tops.get(g)]
-    send_mail(cfg, "[항공권 감시] 오사카 주말 최저 " + (" / ".join(lows) or "결과 없음"), text, body)
-    log("메일 발송 완료")
+    notify(cfg, "[항공권 감시] 오사카 주말 최저 " + (" / ".join(lows) or "결과 없음"), text, body,
+           tg_text=build_telegram(cfg, tops, last, reasons, failures, total))
+    if not a.limit:
+        sent_p.write_text(json.dumps(tops, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 if __name__ == "__main__":
@@ -692,9 +802,10 @@ if __name__ == "__main__":
         log(f"오류로 중단: {type(e).__name__}: {str(e)[:200]}")
         try:
             cfg = load_config()
-            if cfg["mail"]["enabled"] and "--test-mail" not in sys.argv:
-                send_mail(cfg, "[항공권 감시] 실행 오류", traceback.format_exc(),
-                          "<pre>" + html.escape(traceback.format_exc()) + "</pre>")
+            if "--test-mail" not in sys.argv and "--test-notify" not in sys.argv:
+                notify(cfg, "[항공권 감시] 실행 오류", traceback.format_exc(),
+                       "<pre>" + html.escape(traceback.format_exc()) + "</pre>",
+                       tg_text="❗ <b>항공권 감시 실행 오류</b>\n" + tg_escape(f"{type(e).__name__}: {str(e)[:300]}"))
         except Exception:
             pass
         sys.exit(1)
