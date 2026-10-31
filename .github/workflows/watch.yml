@@ -10,7 +10,7 @@ on:
       mode:
         description: "실행 방식"
         type: choice
-        options: [full, limit, probe, test-mail]
+        options: [full, limit, probe, test-notify, test-mail]
         default: limit
       probe_date:
         description: "probe 날짜 (YYYY-MM-DD, 앞으로의 토요일)"
@@ -35,6 +35,8 @@ jobs:
       MAIL_USER: ${{ secrets.MAIL_USER }}
       MAIL_APP_PASSWORD: ${{ secrets.MAIL_APP_PASSWORD }}
       MAIL_TO: ${{ secrets.MAIL_TO }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -50,7 +52,7 @@ jobs:
             probe)     D="${{ github.event.inputs.probe_date }}"
                        if [ -z "$D" ]; then D=$(python -c "import datetime as d;t=d.date.today()+d.timedelta(days=30);print(t+d.timedelta(days=(5-t.weekday())%7))"); fi
                        python naver_api_watch.py --probe "$D" ;;
-            test-mail) python naver_api_watch.py --test-mail ;;
+            test-mail|test-notify) python naver_api_watch.py --test-notify ;;
           esac
       - name: 결과 파일 보관 (Actions 실행 화면에서 내려받기)
         if: always()
@@ -64,6 +66,6 @@ jobs:
         run: |
           git config user.name "flight-watch-bot"
           git config user.email "flight-watch-bot@users.noreply.github.com"
-          for f in data/last_top.json data/history.csv data/state.json; do if [ -f "$f" ]; then git add "$f"; fi; done
+          for f in data/last_top.json data/history.csv data/state.json data/last_notified.json; do if [ -f "$f" ]; then git add "$f"; fi; done
           git diff --cached --quiet || git commit -m "가격 기록 $(date '+%Y-%m-%d %H:%M')"
           git push || true
