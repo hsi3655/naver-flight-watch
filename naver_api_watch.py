@@ -492,10 +492,33 @@ def send_mail(cfg, subject, text, body):
     msg["Subject"], msg["From"], msg["To"] = subject, m["user"], ", ".join(m["to"])
     msg.attach(MIMEText(text, "plain", "utf-8"))
     msg.attach(MIMEText(body, "html", "utf-8"))
-    with smtplib.SMTP(m["smtp_host"], m["smtp_port"], timeout=30) as s:
-        s.starttls()
-        s.login(m["user"], m["app_password"].replace(" ", ""))
-        s.sendmail(m["user"], m["to"], msg.as_string())
+    pw = re.sub(r"\s", "", m["app_password"])
+    mask = lambda a: (a[:2] + "***" + a[a.find("@"):]) if "@" in a else "***"
+    log(f"메일 발송 시도: 보내는 {mask(m['user'])} → 받는 {', '.join(mask(x) for x in m['to'])} "
+        f"(앱 비밀번호 {len(pw)}자{'' if len(pw) == 16 and pw.isalpha() else ' ⚠ Gmail 앱 비밀번호는 영문 16자'})")
+    last = None
+    for attempt, (port, ssl_mode) in enumerate([(m["smtp_port"], False), (465, True), (m["smtp_port"], False)]):
+        try:  # 587(STARTTLS) → 안 되면 465(SSL) → 다시 587, 사이사이 대기
+            if ssl_mode:
+                s = smtplib.SMTP_SSL(m["smtp_host"], port, timeout=30)
+            else:
+                s = smtplib.SMTP(m["smtp_host"], port, timeout=30)
+                s.starttls()
+            with s:
+                s.login(m["user"], pw)
+                s.sendmail(m["user"], m["to"], msg.as_string())
+            if attempt:
+                log(f"메일 발송: {attempt + 1}번째 시도({port}번 포트)에서 성공")
+            return
+        except smtplib.SMTPAuthenticationError as e:
+            raise RuntimeError(f"Gmail 로그인 거부(앱 비밀번호·주소 확인 필요): {e.smtp_code} "
+                               f"{e.smtp_error.decode(errors='replace')[:150]}") from e
+        except (smtplib.SMTPException, OSError) as e:
+            last = e
+            log(f"메일 발송 실패({port}번 포트): {type(e).__name__}: {e}")
+            time.sleep(15)
+    raise RuntimeError(f"Gmail 연결이 계속 끊김 — Google이 로그인을 막았을 수 있음 "
+                       f"(Google 계정 보안 알림 확인 필요): {type(last).__name__}: {last}")
 
 
 def save(tops, results, keep_days=120):
