@@ -92,13 +92,31 @@
   },
   {
    "group": "네이버페이",
+   "dep": "2027-01-09",
+   "ret": "2027-01-11",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 387300,
+   "discount": false,
+   "general": 387300,
+   "airlines": "제주항공",
+   "times": [
+    "09:10",
+    "11:00",
+    "12:00",
+    "14:05"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270109/KIX-ICN-20270111?adult=1&fareType=Y"
+  },
+  {
+   "group": "네이버페이",
    "dep": "2027-03-13",
    "ret": "2027-03-15",
    "pattern": "토~월",
    "origin": "ICN",
    "price": 389000,
    "discount": true,
-   "general": 396400,
+   "general": 395900,
    "airlines": "진에어",
    "times": [
     "12:00",
@@ -107,24 +125,6 @@
     "19:45"
    ],
    "url": "https://flight.naver.com/flights/international/ICN-KIX-20270313/KIX-ICN-20270315?adult=1&fareType=Y"
-  },
-  {
-   "group": "네이버페이",
-   "dep": "2027-01-09",
-   "ret": "2027-01-11",
-   "pattern": "토~월",
-   "origin": "ICN",
-   "price": 391700,
-   "discount": false,
-   "general": 391700,
-   "airlines": "에어부산",
-   "times": [
-    "09:05",
-    "11:00",
-    "12:00",
-    "14:10"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270109/KIX-ICN-20270111?adult=1&fareType=Y"
   },
   {
    "group": "네이버페이",
@@ -168,9 +168,9 @@
    "ret": "2026-12-21",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 408100,
+   "price": 397900,
    "discount": false,
-   "general": 408100,
+   "general": 397900,
    "airlines": "트리니티항공 → 에어부산",
    "times": [
     "07:55",
@@ -278,15 +278,15 @@
    "ret": "2027-01-11",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 391700,
+   "price": 387300,
    "discount": false,
-   "general": 391700,
-   "airlines": "에어부산",
+   "general": 387300,
+   "airlines": "제주항공",
    "times": [
-    "09:05",
+    "09:10",
     "11:00",
     "12:00",
-    "14:10"
+    "14:05"
    ],
    "url": "https://flight.naver.com/flights/international/ICN-KIX-20270109/KIX-ICN-20270111?adult=1&fareType=Y"
   },
@@ -296,9 +296,9 @@
    "ret": "2027-03-15",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 394600,
+   "price": 390800,
    "discount": true,
-   "general": 396400,
+   "general": 395900,
    "airlines": "진에어",
    "times": [
     "12:00",
@@ -350,9 +350,9 @@
    "ret": "2026-12-21",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 408100,
+   "price": 397900,
    "discount": false,
-   "general": 408100,
+   "general": 397900,
    "airlines": "트리니티항공 → 에어부산",
    "times": [
     "07:55",
