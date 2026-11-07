@@ -38,24 +38,6 @@
   },
   {
    "group": "네이버페이",
-   "dep": "2027-03-06",
-   "ret": "2027-03-08",
-   "pattern": "토~월",
-   "origin": "ICN",
-   "price": 367900,
-   "discount": true,
-   "general": 371700,
-   "airlines": "진에어",
-   "times": [
-    "12:00",
-    "13:50",
-    "14:50",
-    "16:50"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270306/KIX-ICN-20270308?adult=1&fareType=Y"
-  },
-  {
-   "group": "네이버페이",
    "dep": "2027-03-20",
    "ret": "2027-03-22",
    "pattern": "토~월",
@@ -71,6 +53,24 @@
     "16:50"
    ],
    "url": "https://flight.naver.com/flights/international/ICN-KIX-20270320/KIX-ICN-20270322?adult=1&fareType=Y"
+  },
+  {
+   "group": "네이버페이",
+   "dep": "2027-03-06",
+   "ret": "2027-03-08",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 369400,
+   "discount": true,
+   "general": 371700,
+   "airlines": "진에어",
+   "times": [
+    "12:00",
+    "13:50",
+    "14:50",
+    "16:50"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270306/KIX-ICN-20270308?adult=1&fareType=Y"
   },
   {
    "group": "네이버페이",
@@ -132,15 +132,15 @@
    "ret": "2027-01-11",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 391400,
+   "price": 392900,
    "discount": false,
-   "general": 391400,
-   "airlines": "에어부산",
+   "general": 392900,
+   "airlines": "제주항공",
    "times": [
-    "09:05",
+    "09:10",
     "11:00",
     "12:00",
-    "14:10"
+    "14:05"
    ],
    "url": "https://flight.naver.com/flights/international/ICN-KIX-20270109/KIX-ICN-20270111?adult=1&fareType=Y"
   },
@@ -314,15 +314,15 @@
    "ret": "2027-01-11",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 391400,
+   "price": 392900,
    "discount": false,
-   "general": 391400,
-   "airlines": "에어부산",
+   "general": 392900,
+   "airlines": "제주항공",
    "times": [
-    "09:05",
+    "09:10",
     "11:00",
     "12:00",
-    "14:10"
+    "14:05"
    ],
    "url": "https://flight.naver.com/flights/international/ICN-KIX-20270109/KIX-ICN-20270111?adult=1&fareType=Y"
   },
