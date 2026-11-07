@@ -24,9 +24,9 @@
    "ret": "2027-01-04",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 360082,
-   "discount": false,
-   "general": 360082,
+   "price": 360828,
+   "discount": true,
+   "general": 360828,
    "airlines": "제주항공 → 에어서울",
    "times": [
     "08:05",
@@ -42,7 +42,7 @@
    "ret": "2027-03-22",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 368900,
+   "price": 369000,
    "discount": true,
    "general": 371300,
    "airlines": "진에어",
@@ -56,11 +56,29 @@
   },
   {
    "group": "네이버페이",
+   "dep": "2027-03-05",
+   "ret": "2027-03-07",
+   "pattern": "금~일",
+   "origin": "ICN",
+   "price": 369600,
+   "discount": false,
+   "general": 369600,
+   "airlines": "진에어 → 에어부산",
+   "times": [
+    "12:00",
+    "13:50",
+    "12:00",
+    "14:10"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270305/KIX-ICN-20270307?adult=1&fareType=Y"
+  },
+  {
+   "group": "네이버페이",
    "dep": "2027-03-06",
    "ret": "2027-03-08",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 369600,
+   "price": 369700,
    "discount": true,
    "general": 371700,
    "airlines": "진에어",
@@ -71,24 +89,6 @@
     "16:50"
    ],
    "url": "https://flight.naver.com/flights/international/ICN-KIX-20270306/KIX-ICN-20270308?adult=1&fareType=Y"
-  },
-  {
-   "group": "네이버페이",
-   "dep": "2027-03-05",
-   "ret": "2027-03-07",
-   "pattern": "금~일",
-   "origin": "ICN",
-   "price": 379500,
-   "discount": true,
-   "general": 382300,
-   "airlines": "진에어",
-   "times": [
-    "12:00",
-    "13:50",
-    "14:50",
-    "16:50"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270305/KIX-ICN-20270307?adult=1&fareType=Y"
   },
   {
    "group": "네이버페이",
@@ -114,7 +114,7 @@
    "ret": "2027-03-15",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 389100,
+   "price": 389300,
    "discount": true,
    "general": 395900,
    "airlines": "진에어",
@@ -164,21 +164,21 @@
   },
   {
    "group": "네이버페이",
-   "dep": "2027-03-12",
-   "ret": "2027-03-14",
-   "pattern": "금~일",
+   "dep": "2027-01-30",
+   "ret": "2027-02-01",
+   "pattern": "토~월",
    "origin": "ICN",
-   "price": 410700,
+   "price": 408900,
    "discount": false,
-   "general": 410700,
-   "airlines": "진에어 → 에어부산",
+   "general": 408900,
+   "airlines": "에어부산",
    "times": [
-    "12:00",
-    "13:50",
+    "09:05",
+    "11:00",
     "12:00",
     "14:10"
    ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270312/KIX-ICN-20270314?adult=1&fareType=Y"
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270130/KIX-ICN-20270201?adult=1&fareType=Y"
   }
  ],
  "우리카드": [
@@ -206,9 +206,9 @@
    "ret": "2027-01-04",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 360082,
+   "price": 360828,
    "discount": false,
-   "general": 360082,
+   "general": 360828,
    "airlines": "제주항공 → 에어서울",
    "times": [
     "08:05",
@@ -260,15 +260,15 @@
    "ret": "2027-03-07",
    "pattern": "금~일",
    "origin": "ICN",
-   "price": 377600,
-   "discount": true,
-   "general": 382300,
-   "airlines": "진에어",
+   "price": 369600,
+   "discount": false,
+   "general": 369600,
+   "airlines": "진에어 → 에어부산",
    "times": [
     "12:00",
     "13:50",
-    "14:50",
-    "16:50"
+    "12:00",
+    "14:10"
    ],
    "url": "https://flight.naver.com/flights/international/ICN-KIX-20270305/KIX-ICN-20270307?adult=1&fareType=Y"
   },
@@ -346,21 +346,21 @@
   },
   {
    "group": "우리카드",
-   "dep": "2027-03-12",
-   "ret": "2027-03-14",
-   "pattern": "금~일",
+   "dep": "2027-01-30",
+   "ret": "2027-02-01",
+   "pattern": "토~월",
    "origin": "ICN",
-   "price": 410700,
+   "price": 408900,
    "discount": false,
-   "general": 410700,
-   "airlines": "진에어 → 에어부산",
+   "general": 408900,
+   "airlines": "에어부산",
    "times": [
-    "12:00",
-    "13:50",
+    "09:05",
+    "11:00",
     "12:00",
     "14:10"
    ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270312/KIX-ICN-20270314?adult=1&fareType=Y"
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270130/KIX-ICN-20270201?adult=1&fareType=Y"
   }
  ]
 }
