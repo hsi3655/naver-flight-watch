@@ -6,9 +6,9 @@
    "ret": "2027-08-22",
    "pattern": "금~일",
    "origin": "ICN",
-   "price": 332400,
+   "price": 333400,
    "discount": false,
-   "general": 332400,
+   "general": 333400,
    "airlines": "트리니티항공",
    "times": [
     "08:00",
@@ -20,31 +20,13 @@
   },
   {
    "group": "네이버페이",
-   "dep": "2027-08-21",
-   "ret": "2027-08-23",
-   "pattern": "토~월",
-   "origin": "ICN",
-   "price": 332400,
-   "discount": false,
-   "general": 332400,
-   "airlines": "트리니티항공",
-   "times": [
-    "08:00",
-    "10:05",
-    "14:30",
-    "16:30"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270821/KIX-ICN-20270823?adult=1&fareType=Y"
-  },
-  {
-   "group": "네이버페이",
    "dep": "2027-08-27",
    "ret": "2027-08-29",
    "pattern": "금~일",
    "origin": "ICN",
-   "price": 332400,
+   "price": 333400,
    "discount": false,
-   "general": 332400,
+   "general": 333400,
    "airlines": "트리니티항공",
    "times": [
     "08:00",
@@ -60,9 +42,9 @@
    "ret": "2027-08-30",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 332400,
+   "price": 333400,
    "discount": false,
-   "general": 332400,
+   "general": 333400,
    "airlines": "트리니티항공",
    "times": [
     "08:00",
@@ -78,9 +60,9 @@
    "ret": "2027-09-05",
    "pattern": "금~일",
    "origin": "ICN",
-   "price": 332400,
+   "price": 333400,
    "discount": false,
-   "general": 332400,
+   "general": 333400,
    "airlines": "트리니티항공",
    "times": [
     "08:00",
@@ -96,9 +78,9 @@
    "ret": "2027-09-06",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 332400,
+   "price": 333400,
    "discount": false,
-   "general": 332400,
+   "general": 333400,
    "airlines": "트리니티항공",
    "times": [
     "08:00",
@@ -110,31 +92,13 @@
   },
   {
    "group": "네이버페이",
-   "dep": "2027-09-24",
-   "ret": "2027-09-26",
-   "pattern": "금~일",
-   "origin": "ICN",
-   "price": 337330,
-   "discount": true,
-   "general": 339900,
-   "airlines": "트리니티항공",
-   "times": [
-    "08:00",
-    "10:05",
-    "14:30",
-    "16:30"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270924/KIX-ICN-20270926?adult=1&fareType=Y"
-  },
-  {
-   "group": "네이버페이",
    "dep": "2027-09-25",
    "ret": "2027-09-27",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 337330,
-   "discount": true,
-   "general": 339900,
+   "price": 333600,
+   "discount": false,
+   "general": 333600,
    "airlines": "트리니티항공",
    "times": [
     "08:00",
@@ -146,13 +110,31 @@
   },
   {
    "group": "네이버페이",
+   "dep": "2027-08-21",
+   "ret": "2027-08-23",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 337330,
+   "discount": true,
+   "general": 338100,
+   "airlines": "트리니티항공",
+   "times": [
+    "08:00",
+    "10:05",
+    "14:30",
+    "16:30"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270821/KIX-ICN-20270823?adult=1&fareType=Y"
+  },
+  {
+   "group": "네이버페이",
    "dep": "2027-03-06",
    "ret": "2027-03-08",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 337900,
+   "price": 345100,
    "discount": false,
-   "general": 337900,
+   "general": 345100,
    "airlines": "이스타항공 → 에어부산",
    "times": [
     "09:55",
@@ -164,33 +146,141 @@
   },
   {
    "group": "네이버페이",
-   "dep": "2027-10-22",
-   "ret": "2027-10-24",
+   "dep": "2027-03-13",
+   "ret": "2027-03-15",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 348200,
+   "discount": false,
+   "general": 348200,
+   "airlines": "이스타항공 → 에어부산",
+   "times": [
+    "09:05",
+    "10:55",
+    "12:00",
+    "14:10"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270313/KIX-ICN-20270315?adult=1&fareType=Y"
+  },
+  {
+   "group": "네이버페이",
+   "dep": "2027-04-02",
+   "ret": "2027-04-04",
    "pattern": "금~일",
    "origin": "ICN",
-   "price": 343200,
+   "price": 351900,
    "discount": false,
-   "general": 343200,
-   "airlines": "트리니티항공 → 이스타항공",
+   "general": 351900,
+   "airlines": "트리니티항공",
    "times": [
-    "08:00",
-    "10:05",
-    "18:00",
-    "19:55"
+    "10:50",
+    "13:00",
+    "14:30",
+    "16:30"
    ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20271022/KIX-ICN-20271024?adult=1&fareType=Y"
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270402/KIX-ICN-20270404?adult=1&fareType=Y"
   }
  ],
  "우리카드": [
+  {
+   "group": "우리카드",
+   "dep": "2027-08-21",
+   "ret": "2027-08-23",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 332330,
+   "discount": true,
+   "general": 338100,
+   "airlines": "트리니티항공",
+   "times": [
+    "08:00",
+    "10:05",
+    "14:30",
+    "16:30"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270821/KIX-ICN-20270823?adult=1&fareType=Y"
+  },
+  {
+   "group": "우리카드",
+   "dep": "2027-08-27",
+   "ret": "2027-08-29",
+   "pattern": "금~일",
+   "origin": "ICN",
+   "price": 332330,
+   "discount": true,
+   "general": 333400,
+   "airlines": "트리니티항공",
+   "times": [
+    "08:00",
+    "10:05",
+    "14:30",
+    "16:30"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270827/KIX-ICN-20270829?adult=1&fareType=Y"
+  },
+  {
+   "group": "우리카드",
+   "dep": "2027-08-28",
+   "ret": "2027-08-30",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 332330,
+   "discount": true,
+   "general": 333400,
+   "airlines": "트리니티항공",
+   "times": [
+    "08:00",
+    "10:05",
+    "14:30",
+    "16:30"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270828/KIX-ICN-20270830?adult=1&fareType=Y"
+  },
+  {
+   "group": "우리카드",
+   "dep": "2027-09-04",
+   "ret": "2027-09-06",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 332330,
+   "discount": true,
+   "general": 333400,
+   "airlines": "트리니티항공",
+   "times": [
+    "08:00",
+    "10:05",
+    "14:30",
+    "16:30"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270904/KIX-ICN-20270906?adult=1&fareType=Y"
+  },
+  {
+   "group": "우리카드",
+   "dep": "2027-09-25",
+   "ret": "2027-09-27",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 332330,
+   "discount": true,
+   "general": 333600,
+   "airlines": "트리니티항공",
+   "times": [
+    "08:00",
+    "10:05",
+    "14:30",
+    "16:30"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270925/KIX-ICN-20270927?adult=1&fareType=Y"
+  },
   {
    "group": "우리카드",
    "dep": "2027-08-20",
    "ret": "2027-08-22",
    "pattern": "금~일",
    "origin": "ICN",
-   "price": 332330,
-   "discount": true,
-   "general": 332400,
+   "price": 333400,
+   "discount": false,
+   "general": 333400,
    "airlines": "트리니티항공",
    "times": [
     "08:00",
@@ -202,67 +292,13 @@
   },
   {
    "group": "우리카드",
-   "dep": "2027-08-21",
-   "ret": "2027-08-23",
-   "pattern": "토~월",
-   "origin": "ICN",
-   "price": 332330,
-   "discount": true,
-   "general": 332400,
-   "airlines": "트리니티항공",
-   "times": [
-    "08:00",
-    "10:05",
-    "14:30",
-    "16:30"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270821/KIX-ICN-20270823?adult=1&fareType=Y"
-  },
-  {
-   "group": "우리카드",
-   "dep": "2027-08-27",
-   "ret": "2027-08-29",
-   "pattern": "금~일",
-   "origin": "ICN",
-   "price": 332330,
-   "discount": true,
-   "general": 332400,
-   "airlines": "트리니티항공",
-   "times": [
-    "08:00",
-    "10:05",
-    "14:30",
-    "16:30"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270827/KIX-ICN-20270829?adult=1&fareType=Y"
-  },
-  {
-   "group": "우리카드",
-   "dep": "2027-08-28",
-   "ret": "2027-08-30",
-   "pattern": "토~월",
-   "origin": "ICN",
-   "price": 332330,
-   "discount": true,
-   "general": 332400,
-   "airlines": "트리니티항공",
-   "times": [
-    "08:00",
-    "10:05",
-    "14:30",
-    "16:30"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270828/KIX-ICN-20270830?adult=1&fareType=Y"
-  },
-  {
-   "group": "우리카드",
    "dep": "2027-09-03",
    "ret": "2027-09-05",
    "pattern": "금~일",
    "origin": "ICN",
-   "price": 332330,
-   "discount": true,
-   "general": 332400,
+   "price": 333400,
+   "discount": false,
+   "general": 333400,
    "airlines": "트리니티항공",
    "times": [
     "08:00",
@@ -274,67 +310,13 @@
   },
   {
    "group": "우리카드",
-   "dep": "2027-09-04",
-   "ret": "2027-09-06",
-   "pattern": "토~월",
-   "origin": "ICN",
-   "price": 332330,
-   "discount": true,
-   "general": 332400,
-   "airlines": "트리니티항공",
-   "times": [
-    "08:00",
-    "10:05",
-    "14:30",
-    "16:30"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270904/KIX-ICN-20270906?adult=1&fareType=Y"
-  },
-  {
-   "group": "우리카드",
-   "dep": "2027-09-24",
-   "ret": "2027-09-26",
-   "pattern": "금~일",
-   "origin": "ICN",
-   "price": 332330,
-   "discount": true,
-   "general": 339900,
-   "airlines": "트리니티항공",
-   "times": [
-    "08:00",
-    "10:05",
-    "14:30",
-    "16:30"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270924/KIX-ICN-20270926?adult=1&fareType=Y"
-  },
-  {
-   "group": "우리카드",
-   "dep": "2027-09-25",
-   "ret": "2027-09-27",
-   "pattern": "토~월",
-   "origin": "ICN",
-   "price": 332330,
-   "discount": true,
-   "general": 339900,
-   "airlines": "트리니티항공",
-   "times": [
-    "08:00",
-    "10:05",
-    "14:30",
-    "16:30"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270925/KIX-ICN-20270927?adult=1&fareType=Y"
-  },
-  {
-   "group": "우리카드",
    "dep": "2027-03-06",
    "ret": "2027-03-08",
    "pattern": "토~월",
    "origin": "ICN",
-   "price": 337900,
+   "price": 345100,
    "discount": false,
-   "general": 337900,
+   "general": 345100,
    "airlines": "이스타항공 → 에어부산",
    "times": [
     "09:55",
@@ -346,21 +328,39 @@
   },
   {
    "group": "우리카드",
-   "dep": "2027-10-22",
-   "ret": "2027-10-24",
-   "pattern": "금~일",
+   "dep": "2027-03-13",
+   "ret": "2027-03-15",
+   "pattern": "토~월",
    "origin": "ICN",
-   "price": 343200,
+   "price": 348200,
    "discount": false,
-   "general": 343200,
-   "airlines": "트리니티항공 → 이스타항공",
+   "general": 348200,
+   "airlines": "이스타항공 → 에어부산",
+   "times": [
+    "09:05",
+    "10:55",
+    "12:00",
+    "14:10"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270313/KIX-ICN-20270315?adult=1&fareType=Y"
+  },
+  {
+   "group": "우리카드",
+   "dep": "2027-04-03",
+   "ret": "2027-04-05",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 348730,
+   "discount": true,
+   "general": 351900,
+   "airlines": "트리니티항공",
    "times": [
     "08:00",
     "10:05",
-    "18:00",
-    "19:55"
+    "14:30",
+    "16:30"
    ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20271022/KIX-ICN-20271024?adult=1&fareType=Y"
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270403/KIX-ICN-20270405?adult=1&fareType=Y"
   }
  ]
 }
