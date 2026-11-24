@@ -8,7 +8,7 @@
    "origin": "ICN",
    "price": 334100,
    "discount": true,
-   "general": 339900,
+   "general": 338784,
    "airlines": "트리니티항공",
    "times": [
     "08:00",
@@ -114,17 +114,35 @@
    "ret": "2027-10-24",
    "pattern": "금~일",
    "origin": "ICN",
-   "price": 338300,
+   "price": 338100,
    "discount": false,
-   "general": 338300,
-   "airlines": "트리니티항공 → 이스타항공",
+   "general": 338100,
+   "airlines": "이스타항공",
    "times": [
-    "08:00",
-    "10:05",
+    "09:15",
+    "11:10",
     "18:00",
     "19:55"
    ],
    "url": "https://flight.naver.com/flights/international/ICN-KIX-20271022/KIX-ICN-20271024?adult=1&fareType=Y"
+  },
+  {
+   "group": "네이버페이",
+   "dep": "2027-03-13",
+   "ret": "2027-03-15",
+   "pattern": "토~월",
+   "origin": "ICN",
+   "price": 351800,
+   "discount": false,
+   "general": 351800,
+   "airlines": "이스타항공 → 에어부산",
+   "times": [
+    "09:55",
+    "11:55",
+    "12:00",
+    "14:10"
+   ],
+   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270313/KIX-ICN-20270315?adult=1&fareType=Y"
   },
   {
    "group": "네이버페이",
@@ -161,24 +179,6 @@
     "16:30"
    ],
    "url": "https://flight.naver.com/flights/international/ICN-KIX-20270522/KIX-ICN-20270524?adult=1&fareType=Y"
-  },
-  {
-   "group": "네이버페이",
-   "dep": "2027-05-29",
-   "ret": "2027-05-31",
-   "pattern": "토~월",
-   "origin": "ICN",
-   "price": 352500,
-   "discount": true,
-   "general": 357000,
-   "airlines": "트리니티항공",
-   "times": [
-    "08:00",
-    "10:05",
-    "14:30",
-    "16:30"
-   ],
-   "url": "https://flight.naver.com/flights/international/ICN-KIX-20270529/KIX-ICN-20270531?adult=1&fareType=Y"
   }
  ],
  "우리카드": [
@@ -190,7 +190,7 @@
    "origin": "ICN",
    "price": 332900,
    "discount": true,
-   "general": 339900,
+   "general": 338784,
    "airlines": "트리니티항공",
    "times": [
     "08:00",
@@ -296,13 +296,13 @@
    "ret": "2027-10-24",
    "pattern": "금~일",
    "origin": "ICN",
-   "price": 338300,
+   "price": 338100,
    "discount": false,
-   "general": 338300,
-   "airlines": "트리니티항공 → 이스타항공",
+   "general": 338100,
+   "airlines": "이스타항공",
    "times": [
-    "08:00",
-    "10:05",
+    "09:15",
+    "11:10",
     "18:00",
     "19:55"
    ],
